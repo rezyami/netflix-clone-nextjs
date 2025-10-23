@@ -36,8 +36,7 @@ function Login() {
       <Image
         src="/login_background.jpg"
         layout="fill"
-        className="-z-10 !hidden opacity-60 sm:!inline"
-        objectFit="cover"
+        className="-z-10 !hidden opacity-60 sm:!inline object-cover"
         alt=""
       />
 

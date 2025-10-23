@@ -11,6 +11,8 @@ interface Props {
 function Thumbnail({ movie }: Props) {
   const [showModal, setShowModal] = useRecoilState(modalState)
   const [currentMovie, setCurrentMovie] = useRecoilState(movieState)
+  const imagePath = movie.backdrop_path || movie.poster_path;
+
 
   return (
     <div
@@ -21,12 +23,11 @@ function Thumbnail({ movie }: Props) {
       }}
     >
       <Image
-        src={`https://image.tmdb.org/t/p/w500${
-          movie.backdrop_path || movie.poster_path
-        }`}
+        src={imagePath ? `https://image.tmdb.org/t/p/original${imagePath}` : '/no-image.jpg'}
         className="rounded-sm object-cover md:rounded"
         layout="fill"
-        alt=""
+        sizes="260px"
+        alt={movie.title || movie.name}
       />
     </div>
   )

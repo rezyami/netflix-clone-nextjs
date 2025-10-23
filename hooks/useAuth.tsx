@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { auth } from '../firebase'
 
+
 interface IAuth {
   user: User | null
   signUp: (email: string, password: string) => Promise<void>
@@ -38,26 +39,32 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [error, setError] = useState(null)
   const [initialLoading, setInitialLoading] = useState(true)
   const router = useRouter()
+  const BYPASS_AUTH = process.env.NEXT_PUBLIC_BYPASS_AUTH === 'true'
 
   // Persisting the user
   useEffect(
     () =>
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          // Logged in...
-          setUser(user)
-          setLoading(false)
+          setUser(user);
+          setLoading(false);
         } else {
-          // Not logged in...
-          setUser(null)
-          setLoading(true)
-          router.push('/login')
+          setUser(null);
+  
+          // <-- only redirect to /login when bypass is OFF
+          if (!BYPASS_AUTH) {
+            setLoading(true);
+            router.push('/login');
+          } else {
+            // When bypassing, ensure loading is false so children render
+            setLoading(false);
+          }
         }
-
-        setInitialLoading(false)
+  
+        setInitialLoading(false);
       }),
     [auth]
-  )
+  );
 
   const signUp = async (email: string, password: string) => {
     setLoading(true)
