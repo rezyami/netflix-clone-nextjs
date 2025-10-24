@@ -33,6 +33,18 @@ interface AuthProviderProps {
   children: React.ReactNode
 }
 
+type UserLike = {
+  uid: string;
+  email?: string | null;
+  displayName?: string | null;
+  // add fields your app expects
+};
+
+const isDevLoginEnabled = 
+  typeof window !== 'undefined' &&
+  process.env.NEXT_PUBLIC_ENABLE_DEV_LOGIN === 'true' &&
+  process.env.NODE_ENV !== 'production';
+
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [loading, setLoading] = useState(false)
   const [user, setUser] = useState<User | null>(null)
@@ -79,18 +91,41 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       .finally(() => setLoading(false))
   }
 
-  const signIn = async (email: string, password: string) => {
+  const signIn = async (email: string, password: string, setLoading: (b: boolean) => void, setUser: (u: UserLike | null) => void) => {
     setLoading(true)
-
-    await signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        setUser(userCredential.user)
-        router.push('/')
-        setLoading(false)
-      })
-      .catch((error) => alert(error.message))
-      .finally(() => setLoading(false))
+const DEV_PASSWORD = process.env.NEXT_PUBLIC_DEV_USER_PASSWORD;
+    if (isDevLoginEnabled) {
+       if (DEV_PASSWORD && password !== DEV_PASSWORD) {
+    alert('Invalid dev credentials');
+    setLoading(false);
+    return;
   }
+    // Create a fake "user" for development. Use env vars or defaults.
+    const devUser: UserLike = {
+      uid: process.env.NEXT_PUBLIC_DEV_USER_UID || 'dev-uid',
+      email: process.env.NEXT_PUBLIC_DEV_USER_EMAIL || email || 'dev@example.com',
+      displayName: 'Developer',
+    };
+
+    await new Promise((r) => setTimeout(r, 150));
+    setUser(devUser);
+    setLoading(false);
+    router.push('/');
+    return { user: devUser };
+  }
+
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    setUser(userCredential.user as unknown as UserLike);
+    router.push('/');
+    return userCredential;
+  } catch (error: any) {
+    alert(error?.message || 'Sign in failed');
+    throw error;
+  } finally {
+    setLoading(false);
+  }
+};
 
   const logout = async () => {
     setLoading(true)

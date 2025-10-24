@@ -21,7 +21,7 @@ function Login() {
 
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
     if (login) {
-      await signIn(email, password)
+      await signIn("dev@example.com", "devpassword123")
     } else {
       await signUp(email, password)
     }
