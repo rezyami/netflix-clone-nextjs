@@ -25,7 +25,7 @@ function Thumbnail({ movie }: Props) {
       <Image
         src={imagePath ? `https://image.tmdb.org/t/p/original${imagePath}` : '/no-image.jpg'}
         className="rounded-sm object-cover md:rounded"
-        layout="fill"
+        fill
         sizes="260px"
         alt={movie.title || movie.name}
       />
