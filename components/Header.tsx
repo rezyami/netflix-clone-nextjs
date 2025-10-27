@@ -3,7 +3,7 @@ import { BellIcon, MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import useAuth from '../hooks/useAuth'
-import MenuList from './MenuList'
+import MenuList, { SidebarMenu } from './SidebarMenu'
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -60,7 +60,7 @@ function Header() {
         />
         {/* </Link> */}
       </div>
-      <MenuList />
+      <SidebarMenu />
     </header>
   )
 }
