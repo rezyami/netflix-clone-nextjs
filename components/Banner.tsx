@@ -6,6 +6,7 @@ import { FaPlay } from 'react-icons/fa'
 import { InformationCircleIcon } from '@heroicons/react/24/outline'
 import { useRecoilState } from 'recoil'
 import { modalState, movieState } from '../atoms/modalAtom'
+import PlayerHero from './netplayer'
 
 interface Props {
   netflixOriginals: Movie[]
@@ -55,6 +56,14 @@ function Banner({ netflixOriginals }: Props) {
           More Info <InformationCircleIcon className="h-5 w-5 md:h-8 md:w-8" />
         </button>
       </div>
+      <PlayerHero
+        trailerUrl="https://www.youtube.com/watch?v=...yourKey..."
+        posterImg="/path/to/poster.jpg"
+        title="Your Movie or Show Title"
+        overview="Description or summary here."
+        
+/>
+
     </div>
   )
 }

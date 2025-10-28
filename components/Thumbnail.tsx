@@ -11,12 +11,13 @@ interface Props {
 function Thumbnail({ movie }: Props) {
   const [showModal, setShowModal] = useRecoilState(modalState)
   const [currentMovie, setCurrentMovie] = useRecoilState(movieState)
-  const imagePath = movie.backdrop_path || movie.poster_path;
+  const imagePath = movie.poster_path;
 
 
   return (
     <div
-      className="relative h-28 min-w-[180px] cursor-pointer transition duration-200 ease-out md:h-36 md:min-w-[260px] md:hover:scale-105"
+      className="relative min-w-[150px] cursor-pointer transition duration-200 ease-out md:h-36 md:hover:scale-105"
+      style={{ width: 150, height: 225 }}
       onClick={() => {
         setCurrentMovie(movie)
         setShowModal(true)
@@ -26,7 +27,7 @@ function Thumbnail({ movie }: Props) {
         src={imagePath ? `https://image.tmdb.org/t/p/original${imagePath}` : '/no-image.jpg'}
         className="rounded-sm object-cover md:rounded"
         fill
-        sizes="260px"
+        sizes="150px"
         alt={movie.title || movie.name}
       />
     </div>

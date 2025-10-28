@@ -3,7 +3,7 @@ import { BellIcon, MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import useAuth from '../hooks/useAuth'
-import SidebarMenu from './SidebarMenu'
+import AppSidebarMenu from './SidebarMenu'
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -27,7 +27,7 @@ function Header() {
 
   return (
     <header className={`${isScrolled && 'bg-[#141414]'}`}>
-      <SidebarMenu />
+      <AppSidebarMenu />
     </header>
   )
 }
