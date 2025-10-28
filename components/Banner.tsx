@@ -6,7 +6,7 @@ import { FaPlay } from 'react-icons/fa'
 import { InformationCircleIcon } from '@heroicons/react/24/outline'
 import { useRecoilState } from 'recoil'
 import { modalState, movieState } from '../atoms/modalAtom'
-import PlayerHero from './netplayer'
+import PlayerHero from './NetPlayer'
 
 interface Props {
   netflixOriginals: Movie[]

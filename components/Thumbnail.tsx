@@ -20,7 +20,6 @@ function Thumbnail({ movie }: Props) {
       style={{ width: 150, height: 225 }}
       onClick={() => {
         setCurrentMovie(movie)
-        setShowModal(true)
       }}
     >
       <Image
