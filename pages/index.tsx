@@ -61,7 +61,7 @@ const Home = ({
         </section>
       </main>
       {showModal && <Modal />}
-      <div className="bg-black fixed top-0 right-0 w-full h-full z-[999999] overflow-hidden pointer-events-none"></div>
+      <div className="bg-black fixed top-0 right-0 w-full h-full overflow-hidden pointer-events-none"></div>
 
     </div>
   )
