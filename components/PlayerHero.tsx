@@ -46,10 +46,8 @@ export default function PlayerHero({
 
     async function fetchMovie() {
       const data = await fetch(
-        `https://api.themoviedb.org/3/${
-          movie?.media_type === 'tv' ? 'tv' : 'movie'
-        }/${movie?.id}?api_key=${
-          process.env.NEXT_PUBLIC_API_KEY
+        `https://api.themoviedb.org/3/${movie?.media_type === 'tv' ? 'tv' : 'movie'
+        }/${movie?.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY
         }&language=en-US&append_to_response=videos`
       )
         .then((response) => response.json())
@@ -70,38 +68,39 @@ export default function PlayerHero({
   }, [movie])
 
   return (
-    <div className="relative">
-              <ReactPlayer
-                url={`https://www.youtube.com/watch?v=${trailer}`}
-                width="100%"
-                height="100%"
-                style={{ position: 'absolute', top: '0', left: '0' }}
-                playing
-                muted={muted}
-              />
-              <div className="absolute bottom-10 flex w-full items-center justify-between px-10">
-                <div className="flex space-x-2">
-                  <button className="flex items-center gap-x-2 rounded bg-white px-8 text-xl font-bold text-black transition hover:bg-[#e6e6e6]">
-                    <FaPlay className="h-7 w-7 text-black" />
-                    Play
-                  </button>
-    
-                  <button className="modalButton">
-                    <PlusIcon className="h-7 w-7" />
-                  </button>
-    
-                  <button className="modalButton">
-                    <HandThumbUpIcon className="h-7 w-7" />
-                  </button>
-                </div>
-                <button className="modalButton" onClick={() => setMuted(!muted)}>
-                  {muted ? (
-                    <SpeakerXMarkIcon className="h-6 w-6" />
-                  ) : (
-                    <SpeakerWaveIcon className="h-6 w-6" />
-                  )}
-                </button>
-              </div>
-            </div>
+    <div className="before:content-[''] before:block before:absolute before:w-[60vw] before:h-[70vh] before:right-0 before:-top-[95px] before:z-[2] before:[box-shadow:inset_120px_-160px_94px_8px_rgb(0,0,0)]">
+      <ReactPlayer
+        url={`https://www.youtube.com/watch?v=${trailer}`}
+        width="60vw"
+        height="60vh"
+        style={{ position: 'absolute', top: '0', right: '0', height: '60vh', width: '60vw' }}
+        playing
+        muted={muted}
+        onError={(e) => console.error('ReactPlayer error', e)}
+      />
+      <div className="absolute bottom-10 flex w-full items-center justify-between px-10">
+        <div className="flex space-x-2">
+          <button className="flex items-center gap-x-2 rounded bg-white px-8 text-xl font-bold text-black transition hover:bg-[#e6e6e6]">
+            <FaPlay className="h-7 w-7 text-black" />
+            Play
+          </button>
+
+          <button className="modalButton">
+            <PlusIcon className="h-7 w-7" />
+          </button>
+
+          <button className="modalButton">
+            <HandThumbUpIcon className="h-7 w-7" />
+          </button>
+        </div>
+        <button className="modalButton" onClick={() => setMuted(!muted)}>
+          {muted ? (
+            <SpeakerXMarkIcon className="h-6 w-6" />
+          ) : (
+            <SpeakerWaveIcon className="h-6 w-6" />
+          )}
+        </button>
+      </div>
+    </div>
   )
 }
