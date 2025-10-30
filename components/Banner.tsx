@@ -24,7 +24,7 @@ function Banner({ netflixOriginals }: Props) {
   }, [netflixOriginals])
 
   return (
-    <div className="fixed top-0 left-0 w-full flex z-[99999] flex-col space-y-2 py-16 md:space-y-4 lg:h-[65vh] lg:justify-end lg:pb-12">
+    <div className="fixed top-0 left-0 w-full flex  flex-col space-y-2 py-16 md:space-y-4 lg:h-[65vh] lg:justify-end lg:pb-12">
       <div className="absolute top-0 left-0  h-[70vh] w-screen">
         <Image
           src={`${baseUrl}${movie?.backdrop_path || movie?.poster_path}`}
@@ -55,6 +55,15 @@ function Banner({ netflixOriginals }: Props) {
           More Info <InformationCircleIcon className="h-5 w-5 md:h-8 md:w-8" />
         </button>
       </div>
+      <div id="background-img-container"
+          className="bg-transparent fixed top-0 right-0 w-full h-full z-0 overflow-hidden pointer-events-none before:content-[''] before:block before:absolute before:w-[60%] before:h-[70%] before:right-0 before:-top-[95px] before:z-[2] before:[box-shadow:inset_120px_-160px_94px_8px_rgb(0,0,0)]">
+          <Image
+            src="/login_background.jpg"
+            fill
+            className="h-3/5 w-3/5 absolute right-0 top-0 max-h-full"
+            alt=""
+          />
+        </div>
       <PlayerHero
         trailerUrl="https://www.youtube.com/watch?v=...yourKey..."
         posterImg="/path/to/poster.jpg"

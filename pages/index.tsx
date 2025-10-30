@@ -8,6 +8,7 @@ import Row from '../components/Row'
 import useAuth from '../hooks/useAuth'
 import { Movie } from '../typings'
 import requests from '../utils/requests'
+import Image from 'next/image'
 
 interface Props {
   netflixOriginals: Movie[]
@@ -18,6 +19,7 @@ interface Props {
   horrorMovies: Movie[]
   romanceMovies: Movie[]
   documentaries: Movie[]
+  movie: Movie
 }
 
 const Home = ({
@@ -29,17 +31,18 @@ const Home = ({
   romanceMovies,
   topRated,
   trendingNow,
+  movie,
 }: Props) => {
   const { loading } = useAuth()
   const showModal = useRecoilValue(modalState)
+  const imagePath = netflixOriginals;
 
   if (loading) return null
-
+  console.log(imagePath);
   return (
     <div
-      className={`relative h-screen bg-gradient-to-b lg:h-[140vh] ${
-        showModal && '!h-screen overflow-hidden'
-      }`}
+      className={`relative h-screen bg-gradient-to-b lg:h-[140vh] ${showModal && '!h-screen overflow-hidden'
+        }`}
     >
       <Head>
         <title>Home - Netflix</title>
@@ -59,9 +62,10 @@ const Home = ({
           <Row title="Romance Movies" movies={romanceMovies} />
           <Row title="Documentaries" movies={documentaries} />
         </section>
+        <div className="bg-black fixed top-0 right-0 w-full h-full overflow-hidden pointer-events-none"></div>
+
       </main>
       {showModal && <Modal />}
-      <div className="bg-black fixed top-0 right-0 w-full h-full overflow-hidden pointer-events-none"></div>
 
     </div>
   )
