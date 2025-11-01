@@ -50,7 +50,19 @@ const Home = ({
       </Head>
 
       <Header />
-      <main className="relative pl-4 pb-24 lg:space-y-24 lg:pl-16">
+      <main className="relative pl-4 pb-24 lg:pl-16">
+        <div id="background-img-container"
+          className="bg-transparent fixed top-0 right-0 w-full h-full z-0 overflow-hidden pointer-events-none before:content-[''] before:block before:absolute before:w-[60%] before:h-[70%] before:right-0 before:-top-[95px] before:z-[2] before:[box-shadow:inset_120px_-160px_94px_8px_rgb(0,0,0)] hidden">
+          <Image
+            src="/login_background.jpg"
+            width={16}
+            height={9}
+            layout="responsive"
+            className="!h-[3/5] !w-[3/5] absolute right-0 top-0"
+            style={{ width: '60%', height: '60%' }}
+            alt=""
+          />
+        </div>
         <Banner netflixOriginals={netflixOriginals} />
         <section className="md:space-y-24 pt-[70vh]">
           <Row title="Trending Now" movies={trendingNow} />
@@ -62,8 +74,6 @@ const Home = ({
           <Row title="Romance Movies" movies={romanceMovies} />
           <Row title="Documentaries" movies={documentaries} />
         </section>
-        <div className="bg-black fixed top-0 right-0 w-full h-full overflow-hidden pointer-events-none"></div>
-
       </main>
       {showModal && <Modal />}
 
