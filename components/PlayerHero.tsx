@@ -24,13 +24,14 @@ export default function PlayerHero({
   const [movie] = useRecoilState(movieState)
   const [trailer, setTrailer] = useState('')
   const [genres, setGenres] = useState<Genre[]>([])
+  const [zIndexVersion, setZIndexVersion] = useState(0)
+  const [selectedMovie, setSelectedMovie] = useRecoilState(movieState)
 
   // Visibility for the background image container
   const [showBgContainer, setShowBgContainer] = useState(false)
 
   // Dynamic title and z-index control
   const [dynamicTitle, setDynamicTitle] = useState('')
-  const [isTopZIndex, setIsTopZIndex] = useState(true)
 
   useEffect(() => {
     if (!movie) {
@@ -40,16 +41,13 @@ export default function PlayerHero({
       setGenres([])
       return
     }
+    
 
     // Show the background container and put it on top
     setDynamicTitle(movie.title || movie.name || '')
     setShowBgContainer(true)
-    setIsTopZIndex(true)
 
-    // Drop z-index after 2s
-    const timer = setTimeout(() => {
-      setIsTopZIndex(false)
-    }, 2000)
+
 
     // Fetch trailer/videos and genres for the selected movie
     async function fetchMovie() {
@@ -74,8 +72,14 @@ export default function PlayerHero({
     }
 
     fetchMovie()
-    return () => clearTimeout(timer)
   }, [movie])
+
+  useEffect(() => {
+    if (selectedMovie) {
+      // Increment version every time selected movie changes
+      setZIndexVersion(prev => prev + 1)
+    }
+  }, [selectedMovie])
 
   // Prefer backdrop if available, otherwise fall back to prop
   const posterUrl = movie?.backdrop_path
@@ -83,14 +87,14 @@ export default function PlayerHero({
     : posterImg
 
   return (
-    <section>
+    <section className='fixed top-0 left-0 w-full h-full max-h-[65vh] z-10 overflow-hidden'>
       {/* Order matters: background image container first, YouTube player after */}
       <BackgroundImgContainer
+        key={zIndexVersion}  // key forces remount
         posterUrl={posterUrl}
         title={dynamicTitle}
         overview={movie?.overview ?? overview}
         show={showBgContainer}
-        isTopZIndex={isTopZIndex}
       />
 
       <YoutubePlayerContainer

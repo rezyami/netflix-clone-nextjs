@@ -10,6 +10,7 @@ import { Movie } from '../typings'
 import requests from '../utils/requests'
 import Image from 'next/image'
 import PlayerHero from '../components/PlayerHero'
+import SidebarMenu from '../components/SidebarMenu'
 
 
 interface Props {
@@ -50,11 +51,10 @@ const Home = ({
         <title>Home - Youflex</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <Header />
-      <main className="relative pl-4 pb-24 lg:pl-16">
-        <Banner netflixOriginals={netflixOriginals} />
-        <section className="md:space-y-24 pt-[70vh]">
+      <Header />  
+      <SidebarMenu />
+      <main className="relative pl-4 pb-24 lg:pl-16 bg-black">
+        <section className="md:space-y-8 pt-[70vh] bg-black">
           <PlayerHero
         trailerUrl="https://www.youtube.com/watch?v=...yourKey..."
         posterImg="/path/to/poster.jpg"
@@ -72,6 +72,7 @@ const Home = ({
           <Row title="Documentaries" movies={documentaries} />
           <Row title="Top 10 Movies" movies={trendingNow.slice(0, 10)} showRanks />
         </section>
+        <Banner netflixOriginals={netflixOriginals} />
       </main>
       {showModal && <Modal />}
 
