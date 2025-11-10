@@ -72,7 +72,7 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({
 }) => (
   <div
     ref={sidebarRef}
-    className={`w-full min-h-screen p-4 flex flex-col fixed top-0 left-0 justify-between z-50 transition-all duration-700
+    className={`min-h-screen p-4 flex flex-col fixed top-0 left-0 justify-between z-50 transition-all duration-700
       ${focused ? "w-full bg-[linear-gradient(90deg,_#000_0%,_#000_15%,_rgba(0,212,255,0)_100%)]" : "w-20 bg-transparent"}
     `}
   >

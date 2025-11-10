@@ -50,12 +50,12 @@ function Banner({ netflixOriginals }: Props) {
 
   return (
     <section className="banner-container z-10 fixed top-24 w-1/2">
-      <div className="banner-meta mb-2 text-white space-x-3 flex text-sm md:text-lg">
+      <h1 className="banner-title text-2xl font-bold md:text-4xl lg:text-7xl z-[99]">{currentMovie.title || currentMovie.name || currentMovie.original_name}</h1>
+      <div className="banner-meta my-2 text-white space-x-3 flex text-sm md:text-lg">
         <span>{year}</span>
         <span className='flex flex-row'><img src="./IMDB_Logo_2016.svg" alt="rating-logo" className='w-8 me-2'  /> {rating}</span>
         {genreNames && <span>{genreNames}</span>}
       </div>
-      <h1 className="banner-title text-2xl font-bold md:text-4xl lg:text-7xl z-[99]">{currentMovie.title || currentMovie.name || currentMovie.original_name}</h1>
       <AutoScrollParagraph>
         {currentMovie.overview}
       </AutoScrollParagraph>
