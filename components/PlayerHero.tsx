@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Element, Genre } from '../typings'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { movieState } from '../atoms/modalAtom'
+import { playerOpenState } from '../atoms/playerAtom'
 import BackgroundImgContainer from './BackgroundImgContainer'
 import YoutubePlayerContainer from './YoutubePlayerContainer'
 
@@ -26,6 +27,7 @@ export default function PlayerHero({
   const [genres, setGenres] = useState<Genre[]>([])
   const [zIndexVersion, setZIndexVersion] = useState(0)
   const [selectedMovie, setSelectedMovie] = useRecoilState(movieState)
+  const playerOpen = useRecoilValue(playerOpenState)  // <-- get player open state
 
   // Visibility for the background image container
   const [showBgContainer, setShowBgContainer] = useState(false)
@@ -87,7 +89,9 @@ export default function PlayerHero({
     : posterImg
 
   return (
-    <section className='fixed top-0 left-0 w-full h-full max-h-[65vh] z-10 overflow-hidden'>
+    <section className={`fixed top-0 left-0 w-full h-full max-h-[65vh] overflow-hidden ${
+      playerOpen ? 'z-50' : 'z-10'
+    }`}>
       {/* Order matters: background image container first, YouTube player after */}
       <BackgroundImgContainer
         key={zIndexVersion}  // key forces remount
