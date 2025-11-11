@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import Link from 'next/link';
 import {
   MagnifyingGlassIcon,
   HomeIcon,
@@ -78,9 +79,8 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({
   >
     {/* Profile Section */}
     <div
-      className={`transition-all duration-500 ${
-        focused ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
-      }`}
+      className={`transition-all duration-500 ${focused ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
+        }`}
       style={{ transitionDelay: focused ? "0.1s" : "0s" }}
     >
       <div className="flex items-center mb-4">
@@ -126,9 +126,8 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({
 
     {/* Settings Section */}
     <div
-      className={`mt-8 transition-all duration-500 ${
-        focused ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
-      }`}
+      className={`mt-8 transition-all duration-500 ${focused ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
+        }`}
       style={{ transitionDelay: focused ? "0.7s" : "0s" }}
     >
       <ul className="space-y-2">
@@ -159,6 +158,7 @@ type SidebarItemProps = {
   focused?: boolean;
   delay?: number;
   isLink?: boolean;
+  href?: string;
   onIconClick?: () => void;
 };
 
@@ -169,6 +169,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   focused,
   delay,
   isLink,
+  href,
   onIconClick
 }) => {
   const baseClasses =
@@ -177,45 +178,53 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   const stateClasses = active
     ? "text-white"
     : "text-gray-300";
-    const cursorClass = "cursor-pointer";
-  return isLink ? (
-    <li className={`${baseClasses} ${stateClasses} ${cursorClass}`}>
-      <span className="mr-2" onClick={onIconClick}>{icon}</span>
-      <span
-        className="transition-all duration-500 ml-2"
-        style={{
-          opacity: focused ? 1 : 0,
-          transform: focused ? "translateX(0)" : "translateX(-2.5rem)",
-          transitionDelay: focused ? `${delay ?? 0}s` : "0s",
-          display: "inline-block",
-        }}
-      >
-        {label}
-      </span>
-    </li>
-  ) : (
-    <div className={`${baseClasses} ${stateClasses} ${cursorClass}`} onClick={onIconClick}>
-      <span
-        className={`mr-2 ${
-          active ? "border-b-[0.3rem] border-b-[#c00] border-solid" : ""
-        }`}
-        
-      >
-        {icon}
-      </span>
-      <span
-        className="transition-all duration-500"
-        style={{
-          opacity: focused ? 1 : 0,
-          transform: focused ? "translateX(0)" : "translateX(-2.5rem)",
-          transitionDelay: focused ? `${delay ?? 0}s` : "0s",
-          display: "inline-block",
-        }}
-      >
-        {label}
-      </span>
-    </div>
-  );
+  const cursorClass = "cursor-pointer";
+  if (isLink && href) {
+    return isLink ? (
+      <li className={`${baseClasses} ${stateClasses} ${cursorClass}`}>
+        <Link
+          href={href}
+          className="flex items-center w-full"
+          onClick={onIconClick}
+        >
+          <span className="mr-2">{icon}</span>
+          <span
+            className="transition-all duration-500 ml-2"
+            style={{
+              opacity: focused ? 1 : 0,
+              transform: focused ? "translateX(0)" : "translateX(-2.5rem)",
+              transitionDelay: focused ? `${delay ?? 0}s` : "0s",
+              display: "inline-block",
+            }}
+          >
+            {label}
+          </span>
+        </Link>
+      </li>
+    ) : (
+      <div className={`${baseClasses} ${stateClasses} ${cursorClass}`} onClick={onIconClick}>
+        <span
+          className={`mr-2 ${active ? "border-b-[0.3rem] border-b-[#c00] border-solid" : ""
+            }`}
+
+        >
+          {icon}
+        </span>
+        <span
+          className="transition-all duration-500"
+          style={{
+            opacity: focused ? 1 : 0,
+            transform: focused ? "translateX(0)" : "translateX(-2.5rem)",
+            transitionDelay: focused ? `${delay ?? 0}s` : "0s",
+            display: "inline-block",
+          }}
+        >
+          {label}
+        </span>
+      </div>
+    );
+  }
+
 };
 
 export default AppSidebarMenu;

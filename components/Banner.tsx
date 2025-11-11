@@ -56,6 +56,8 @@ function Banner({ netflixOriginals }: Props) {
 
   const rating = currentMovie.vote_average?.toFixed(1) ?? 'N/A'
 
+  const language = currentMovie.original_language
+
   const genreNames =
     currentMovie.genre_ids
       ?.map((id) => genreList.find((g) => g.id === id)?.name)
@@ -69,6 +71,7 @@ function Banner({ netflixOriginals }: Props) {
         {currentMovie.title || currentMovie.name || currentMovie.original_name}
       </h1>
       <div className="banner-meta my-2 text-white space-x-3 flex text-sm md:text-lg">
+        <span className='capitalize'>{language}</span>
         <span>{year}</span>
         <span className="flex flex-row">
           <img src="./IMDB_Logo_2016.svg" alt="rating-logo" className="w-8 me-2" /> {rating}
