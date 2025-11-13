@@ -53,12 +53,13 @@ type SidebarMenuProps = {
 
 const menuItems = [
   { label: "Search", icon: <MagnifyingGlassIcon className="w-6 h-6" /> },
-  { label: "Home", icon: <HomeIcon className="w-6 h-6" /> },
-  { label: "New & Popular", icon: <FireIcon className="w-6 h-6" /> },
-  { label: "TV Shows", icon: <TvIcon className="w-6 h-6" /> },
-  { label: "Movies", icon: <FilmIcon className="w-6 h-6" /> },
-  { label: "My List", icon: <PlusIcon className="w-6 h-6" /> }
+  { label: "Home", icon: <HomeIcon className="w-6 h-6" />, href: "/" },
+  { label: "New & Popular", icon: <FireIcon className="w-6 h-6" />, href: "/new-popular" },
+  { label: "TV Shows", icon: <TvIcon className="w-6 h-6" />, href: "/tv-shows" },
+  { label: "Movies", icon: <FilmIcon className="w-6 h-6" />, href: "/movies" },
+  { label: "My List", icon: <PlusIcon className="w-6 h-6" />, href: "/my-list" }
 ];
+
 
 const settingsItems = [
   { label: "Settings", icon: <Cog6ToothIcon className="w-6 h-6" /> },
@@ -115,6 +116,7 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({
               key={item.label}
               icon={item.icon}
               label={item.label}
+              href={item.href}
               active={activeIdx === idx}
               focused={focused}
               delay={0.15 + 0.05 * idx}
